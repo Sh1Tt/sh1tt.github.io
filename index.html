@@ -6,38 +6,63 @@
   </head>
   <body>
     <script type="text/javascript">
+      
       const base = 'https://api.binance.com/';
       const route = 'api/v3/ticker/24hr?symbol=';
-      const getTick = async ( symbol, parent ) =>
+      
+      const params =
+      { 
+        interval: 1000,
+        symbols: [
+          'CAKEBTC',
+          'RUNEBTC',
+          'ICPBTC'
+        ];
+      }
+
+      const getTick = async symbol =>
       {
         if ( typeof( symbol ) === undefined || symbol === 'undefined') return
         const endpoint = base + route + symbol;
         const data = await fetch( endpoint, { method: 'get' } );
         const response = await data.json();
-        const { weightedAvgPrice, priceChangePercent } = response;
-        parent.innerHTML += `
-          <div id="exchange" class="container">
-            <div id="${symbol}" class="crypto">
-              <h3>
-                ${symbol}
-              </h3>
-              <h3 class="avg">
-                ${weightedAvgPrice}
-              </h3>
-              <h3 class="change percent">
-                ${priceChangePercent}
-              </h3>
-            </div>
-          </div>
-        `;
+        // const { weightedAvgPrice, priceChangePercent } = response;
+        // parent.innerHTML += `
+        //   <div id="exchange" class="container">
+        //     <div id="${symbol}" class="crypto">
+        //       <h3>
+        //         ${symbol}
+        //       </h3>
+        //       <h3 class="avg">
+        //         ${weightedAvgPrice}
+        //       </h3>
+        //       <h3 class="change percent">
+        //         ${priceChangePercent}
+        //       </h3>
+        //     </div>
+        //   </div>
+        // `;
+        const target = document.body.querySelector( `#${symbol}` );
+        return response;
       }
+
+      const step = interval => { setTimeout( update(), interval ); }
+
+      const update = () =>
+      {
+        params.symbols.forEach( symbol =>
+        {
+          const crypto = getTick( symbol );
+          console.log( crypto );
+        });
+        step( params.interval );
+      }
+
       document.addEventListener('DOMContentLoaded', () =>
       {
-        const container = document.createElement( 'div');
-        container.id = '__app';
-        document.body.appendChild( container );
-        getTick( 'CAKEBTC', container );
-        getTick( 'RUNEBTC', container );
+        const app = document.createElement( 'div');
+        document.body.appendChild( app );
+        update();
       }, true );
     </script>
   </body>
