@@ -8,14 +8,14 @@
     <script type="text/javascript">
       const base = 'https://api.binance.com/';
       const route = 'api/v3/ticker/24hr?symbol=';
-      const getTick = async symbol =>
+      const getTick = async ( symbol, parent ) =>
       {
         if ( typeof( symbol ) === undefined || symbol === 'undefined') return
         const endpoint = base + route + symbol;
         const data = await fetch( endpoint, { method: 'get' } );
         const response = await data.json();
         const { weightedAvgPrice, priceChangePercent } = response;
-        app.innerHTML += `
+        parent.innerHTML += `
           <div id="exchange" class="container">
             <div id="${symbol}" class="crypto">
               <h3>
@@ -33,10 +33,11 @@
       }
       document.addEventListener('DomContentLoaded', () =>
       {
-        const app = document.createElement( 'div');
-        document.body.appendChild( app );
-        getTick( 'CAKEBTC' );
-        getTick( 'BUSDBTC' );
+        const container = document.createElement( 'div');
+        container.id = '__app';
+        document.body.appendChild( container );
+        getTick( 'CAKEBTC', container );
+        getTick( 'BUSDBTC', container );
       }, true );
     </script>
   </body>
