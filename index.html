@@ -7,8 +7,8 @@
   <body>
     <script type="text/javascript">
       const app = document.body.querySelector( `#__app` );
-      const base = `https://api.binance.com`;
-      const api = `/api/v3/thicker/24hr?symbol=`;
+      const base = 'https://api.binance.com';
+      const api = '/api/v3/ticker/24hr?symbol=';
       let symbol;
 
       const getTick = async symbol =>
