@@ -23,10 +23,15 @@
       const getTick = async symbol =>
       {
         if ( typeof( symbol ) === undefined || symbol === 'undefined') return
+        
+        const crypto = document.body.querySelector( `[id="${symbol}"]` );
+        const avgPrice = crypto.querySelector( `[data-price="${symbol}"]` );
+        const changePercent = crypto.querySelector ( `[data-change="${symbol}"]` );
+        
         const endpoint = base + route + symbol;
         const data = await fetch( endpoint, { method: 'get' } );
         const response = await data.json();
-        // const { weightedAvgPrice, priceChangePercent } = response;
+        const { weightedAvgPrice, priceChangePercent } = response;
         // parent.innerHTML += `
         //   <div id="exchange" class="container">
         //     <div id="${symbol}" class="crypto">
@@ -42,25 +47,40 @@
         //     </div>
         //   </div>
         // `;
-        return response;
+        //return response;
+        avgPrice.innerText = weightedAvgPrice;
+        changePercent.innerText = priceChangePercent;
+        return
       }
 
       const step = interval => { setTimeout( update(), interval ); }
 
-      const update = async () =>
+      const update = () =>
       {
         params.symbols.forEach( symbol =>
         {
-          const crypto = await getTick( symbol );
-          console.log( crypto );
+          getTick( symbol );
         });
         step( params.interval );
+        return
       }
 
       document.addEventListener('DOMContentLoaded', () =>
       {
         const app = document.createElement( 'div');
         document.body.appendChild( app );
+        
+        params.symbols.forEach( symbol =>
+        {
+          const __crypto = document.createElement( 'div' );
+          app.appendChild( __crypto );
+          crypto.innerHTML = `
+            <h3>${symbol}</h3>
+            <h3 data-price="${symbol}">0.00000000</h3>
+            <h3 data-change="${symbol}">0.00%</h3>
+          `;
+          
+        });
         update();
       }, true );
     </script>
