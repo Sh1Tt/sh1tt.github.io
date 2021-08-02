@@ -1,12 +1,45 @@
-<html>
+<!DOCTYPE html lang="en">
   <head>
+    <meta http-equiv="Content-Type" Content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0, viewport-fit=cover" />
     <title>new pages page</title>
   </head>
   <body>
+    <script type="text/javascript">
+      const app = document.body.querySelector( `#__app` );
+      const base = `https://api.binance.com`;
+      const api = `/api/v3/thicker/24hr?symbol=`;
+      let symbol;
+
+      const getTick = async symbol =>
+      {
+        if ( typeof( symbol ) === undefined || symbol === 'undefined') return
+        const endpoint = base + api + symbol;
+        const data = await fetch( endpoint, { method: 'get' } );
+        const response = await data.json();
+        const { weightedAvgPrice, priceChangePercent } = response;
+        app.innerHTML = `
+          <div id="exchange" class="container">
+            <div id="${symbol}" class="crypto">
+              <h3>
+                ${symbol}
+              </h3>
+              <h3 class="avg">
+                ${weightedAvgPrice}
+              </h3>
+              <h3 class="change percent">
+                ${priceChangePercent}
+              </h3>
+            </div>
+          </div>
+        `;
+      }
+      getTick( 'CAKEBTC' );
+    </script>
     <header>
       <h1>Hello world!</h1>
     </header>
-    <main></main>
+    <main id="__app"></main>
     <footer></footer>
   </body>
 </html>
