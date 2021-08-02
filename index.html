@@ -12,7 +12,7 @@
       
       const params =
       { 
-        interval: 1000,
+        interval: 5000,
         symbols: [
           'CAKEBTC',
           'RUNEBTC',
@@ -42,17 +42,16 @@
         //     </div>
         //   </div>
         // `;
-        const target = document.body.querySelector( `#${symbol}` );
         return response;
       }
 
       const step = interval => { setTimeout( update(), interval ); }
 
-      const update = () =>
+      const update = async () =>
       {
         params.symbols.forEach( symbol =>
         {
-          const crypto = getTick( symbol );
+          const crypto = await getTick( symbol );
           console.log( crypto );
         });
         step( params.interval );
