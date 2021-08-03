@@ -75,9 +75,9 @@
         border: .175em solid currentcolor;
         font-size:  140%;
         box-shadow: 2px 2px 7px rgb( 0 0 0 / 75 );
-        
+        backdrop-filter: blur( 5px );
       }
-      #__base, #__base
+      #__base
       {
         visibility: collapse;
       }
@@ -255,10 +255,11 @@
                 // Read the file
                 let customImageFile = 'file:///' + properties.bgimage.value;
 
-                document.body.style.backgroundImage = `url( ${customImageFile} )`;
+                //document.body.style.backgroundImage = `url( ${customImageFile} )`;
                 // Assign the file to the src attribute of an image element
                 // imageElement = document.getElementById('SomeImageElement');
                 // imageElement.src = customImageFile;
+                document.getElementById( `__bg` ).src = customImageFile;
             }
         },
       };
