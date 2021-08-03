@@ -94,17 +94,17 @@
         <div id="BTCEUR" class="tradingpair">
           <h3 data-pair>BTCEUR</h3>
           <h3 data-price>0.000000</h3>
-          <p data-busd>$0.00</p>
+          <p data-busd style="visibility: hidden;">$0.00</p>
           <p data-eur>€0.00</p>
-          <h3 data-change>0.00%</h3>
+          <h1 data-change style="overflow: visible;">0.00%</h1>
         </div>
         <!-- BTCBUSD -->
         <div id="BTCBUSD" class="tradingpair">
           <h3 data-pair>BTCBUSD</h3>
           <h3 data-price>0.000000</h3>
-          <p data-busd>$0.00</p>
+          <p data-busd style="visibility: hidden;">$0.00</p>
           <p data-eur>€0.00</p>
-          <h3 data-change>0.00%</h3>
+          <h1 data-change style="overflow: visible;">0.00%</h1>
         </div>
       </div>
       
@@ -196,7 +196,7 @@
         if ( symbol === 'EURBUSD' ) rates['EURBUSD'] = weightedAvgPrice
         if ( symbol === 'BTCEUR' ) rates['EUR'] = weightedAvgPrice
         
-        euro.innerText = ( symbol === 'BTCBUSD' ? `€${ Rounded( weightedAvgPrice / rates['EURBUSD'] ) }` : ( symbol === 'BTCEUR' ? `${ Math.round( weightedAvgPrice * 100 ) / 100 }` : `€${ Rounded( weightedAvgPrice * rates['EUR'] ) }` ) );
+        euro.innerText = ( symbol === 'BTCBUSD' ? `€${ Rounded( weightedAvgPrice / rates['EURBUSD'] ) }` : ( symbol === 'BTCEUR' ? `€${ Math.round( weightedAvgPrice * 100 ) / 100 }` : `€${ Rounded( weightedAvgPrice * rates['EUR'] ) }` ) );
         
         const setStyle = ( parent ) =>
         {
