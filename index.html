@@ -98,7 +98,7 @@
     <div id="__app">
       
       <!-- DISPLAY CLOCK -->
-      <h2 data-timelocale id="__time">00:00</h2>
+      <h2 id="__time">00:00</h2>
       
       <!-- FIAT GROUP -->
       <div id="__fiats" class="exchange">
@@ -197,14 +197,37 @@
         { 
           const x = document.createElement( 'div' );
           x.id = id;
+          x.class = 'exchange';
           return x;
         }
-        app.appendChild( exchange( '__fiats_v0' ) );
-        app.appendChild( exchange( '__coins_v0' ) );
+        app.appendChild( exchange( '__fiat_v0' ) );
+        app.appendChild( exchange( '__coin_v0' ) );
         app.appendChild( exchange( '__base_v0' ) );
+        
+
+        const tradepair = ( symbol, exchange ) => 
+        {
+          const x = document.body.querySelector( `#__${exchange}_v0` );
+          x.innerHTML += `
+            <div id="${symbol}" class="${exchange}">
+              <h3 data-pair>${symbol}</h3>
+              <h3 data-percent>0.00%</h3>
+              <h3 data-price>0.000000</h3>
+              <p data-fiat>$0.00</p>
+              <h6 data-change>-</h6>
+            </div>
+          `;
+        }
+        params.symbols.forEach( symbol, i =>
+        {
+          if ( i === 0 ) tradepair( symbol, 'base' );
+          if ( ( i === 1 ) || ( i === 2 ) ) tradepair( symbol, 'fiat' );
+          if ( i >= 3 ) tradepair( symbol, 'coin' );
+        });
+
       }
       ini();
-      
+
       const getTick = async symbol =>
       {
         if ( typeof( symbol ) === undefined || symbol === 'undefined') return
@@ -251,7 +274,7 @@
 
       const update = () =>
       {
-        const clock = document.body.querySelector( `[data-timelocale]` );
+        const clock = document.body.querySelector( `#__time` );
         clock.innerText = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' });
         params.symbols.forEach( symbol =>
         {
