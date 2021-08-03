@@ -94,17 +94,19 @@
         <div id="BTCEUR" class="tradingpair">
           <h3 data-pair>BTCEUR</h3>
           <h3 data-price>0.000000</h3>
+          <h3 data-change>0.00%</h3>
           <p data-busd style="visibility: hidden;">$0.00</p>
-          <p data-eur>€0.00</p>
-          <h1 data-change style="overflow: visible;">0.00%</h1>
+          <p data-eur style="flex: 0 0 100%;text-align:end;">€0.00</p>
+          
         </div>
         <!-- BTCBUSD -->
         <div id="BTCBUSD" class="tradingpair">
           <h3 data-pair>BTCBUSD</h3>
           <h3 data-price>0.000000</h3>
+          <h3 data-change>0.00%</h3>
           <p data-busd style="visibility: hidden;">$0.00</p>
-          <p data-eur>€0.00</p>
-          <h1 data-change style="overflow: visible;">0.00%</h1>
+          <p data-eur style="flex: 0 0 100%;text-align:end;">€0.00</p>
+          
         </div>
       </div>
       
@@ -182,7 +184,7 @@
         }
         const pair = document.body.querySelector( `#${symbol}` )
         const tick = pair.querySelector( `[data-price]` )
-        const euro = pair.querySelector( `[data-eur]` )
+        const eur = pair.querySelector( `[data-eur]` )
         const busd = pair.querySelector( `[data-busd]` )
         const percent = pair.querySelector( `[data-change]` )
 
@@ -197,15 +199,17 @@
         if ( symbol === 'EURBUSD' ) rates['EURBUSD'] = weightedAvgPrice
         if ( symbol === 'BTCEUR' ) rates['EUR'] = weightedAvgPrice
         
-        const eur = ( symbol === 'BTCBUSD' ? `€${ Rounded( weightedAvgPrice / rates['EURBUSD'] ) }` : ( symbol === 'BTCEUR' ? `€${ Math.round( weightedAvgPrice * 100 ) / 100 }` : `€${ Rounded( weightedAvgPrice * rates['EUR'] ) }` ) );
-        euro.innerText = eur;
-        busd.innerText = Math.round( ( eur / rates['EURBUSD'] ) * 100 ) / 100;
-        const setStyle = ( parent ) =>
+        const E = ( symbol === 'BTCBUSD' ? `€${ Rounded( weightedAvgPrice / rates['EURBUSD'] ) }` : ( symbol === 'BTCEUR' ? `€${ Math.round( weightedAvgPrice * 100 ) / 100 }` : `€${ Rounded( weightedAvgPrice * rates['EUR'] ) }` ) );
+        
+        eur.innerText = E;
+        busd.innerText = Math.round( ( E / rates['EURBUSD'] ) * 100 ) / 100;
+        
+        const setStyle = parent =>
         {
           parent.style.color = ( priceChangePercent > 0 ? 'green' : ( priceChangePercent < 0 ? 'red' : ( priceChangePercent === 0 ? 'gray' : 'var( --theme-color );' ) ) );  
         }
         setStyle( percent )
-        setStyle( euro )
+        setStyle( eur )
         return
       }
 
