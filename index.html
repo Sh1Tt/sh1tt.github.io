@@ -22,30 +22,20 @@
         background-color: var( --bg-color );
         font-family: 'roboto', sans-serif;
       }
-      #time
+      #__app
       {
-        display: flex;
-        flex-direction: row;
-        flex-wrap:  wrap;
+        background-image: linear-gradient( 17deg, rgb( 2 4 3 / 99 ), rgb( 8 8 8 / 91 ), rgb( 41 41 41 / 87 ), rgb( 2 4 3 / 99 ) );
+        width: 380px;
+        margin: 0 2vw auto auto;
       }
-      .spacer
-      {
-        flex: 1 1 0px;
-        min-width: 320px;
-        max-width: 480px;
-        height: 3vh;
-        font-size: xxx-large;
-        display: grid;
-        justify-content: center;
-      }
+
       #__time
       {
-        flex: 1 1 0px;
-        min-width: 320px;
-        height: 3vh;
-        font-size: xxx-large;
         display: grid;
         justify-content: center;
+        font-size: 600%;
+        font-weight: 100;
+        padding: .5em 0;
       }
 
       .group
@@ -74,12 +64,7 @@
     <div id="__app">
       
       <!-- DISPLAY CLOCK -->
-      <div id="time" class="container">
-        <span class="spacer"></span>
-        <span class="spacer"></span>
-        <span class="spacer"></span>
-        <h2 data-timelocale id="__time">00:00</h2>
-      </div>
+      <h2 data-timelocale id="__time">00:00</h2>
       
       <!-- FIAT GROUP -->
       <div id="__fiats" class="group">
