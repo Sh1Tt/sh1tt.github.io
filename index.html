@@ -198,7 +198,7 @@
         if ( symbol === 'BTCEUR' ) rates['EUR'] = weightedAvgPrice
         
         const EUR = ( symbol === 'BTCBUSD' ? Rounded( weightedAvgPrice / rates['EURBUSD'] ) : ( symbol === 'BTCEUR' ? Math.round( weightedAvgPrice * 100 ) / 100 : Rounded( weightedAvgPrice * rates['EUR'] ) ) );
-        const B = Rounded( EUR / rates['EURBUSD'] );
+        const BUSD = Rounded( EUR / rates['EURBUSD'] );
 
         eur.innerText = `€${EUR}`;
         busd.innerText = `$${BUSD}`;
