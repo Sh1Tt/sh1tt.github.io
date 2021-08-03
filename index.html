@@ -5,6 +5,19 @@
     <title>new pages page</title>
   </head>
   <body>
+    <div id="__app">
+      <div id="CAKEBTC">
+        <h3 data-pair>
+          CAKEBTC
+        </h3>
+        <h3 data-price>
+          0.000000
+        </h3>
+        <h3 data-change>
+          0.00%
+        </h3>
+      </div>
+    </div>
     <script type="text/javascript">
       
       const base = 'https://api.binance.com/';
@@ -24,28 +37,17 @@
       {
         if ( typeof( symbol ) === undefined || symbol === 'undefined') return
         
-        const endpoint = base + route + symbol;
-        const data = await fetch( endpoint, { method: 'get' } );
+        const pair = document.body.querySelector( `#${symbol}` )
+        const price = pair.querySelector( `[data-price]` )
+        const percent = pair.querySelector( `[data-change]` )
+
+        const endpoint = base + route + symbol
+        const data = await fetch( endpoint, { method: 'get' } )
         const response = await data.json();
         const { weightedAvgPrice, priceChangePercent } = response;
-        // parent.innerHTML += `
-        //   <div id="exchange" class="container">
-        //     <div id="${symbol}" class="crypto">
-        //       <h3>
-        //         ${symbol}
-        //       </h3>
-        //       <h3 class="avg">
-        //         ${weightedAvgPrice}
-        //       </h3>
-        //       <h3 class="change percent">
-        //         ${priceChangePercent}
-        //       </h3>
-        //     </div>
-        //   </div>
-        // `;
-        //return response;
-        document.body.querySelector( `#${symbol}__price` ).innerText = weightedAvgPrice;
-        document.body.querySelector( `#${symbol}__percent` ).innerText = priceChangePercent;
+
+        price.innerText = weightedAvgPrice;
+        percent.innerText = priceChangePercent;
         return
       }
 
@@ -63,19 +65,19 @@
 
       document.addEventListener('DOMContentLoaded', () =>
       {
-        const app = document.createElement( 'div');
-        document.body.appendChild( app );
+        // const app = document.createElement( 'div');
+        // document.body.appendChild( app );
         
-        params.symbols.forEach( symbol =>
-        {
-          const __crypto = document.createElement( 'div' );
-          app.appendChild( __crypto );
-          crypto.innerHTML = `
-            <h3 id="${symbol}">${symbol}</h3>
-            <h3 id="${symbol}__price">0.0000000</h3>
-            <h3 id="${symbol}__percent">0.00%</h3>
-          `;
-        });
+        // params.symbols.forEach( symbol =>
+        // {
+        //   const __crypto = document.createElement( 'div' );
+        //   app.appendChild( __crypto );
+        //   crypto.innerHTML = `
+        //     <h3 id="${symbol}">${symbol}</h3>
+        //     <h3 id="${symbol}__price">0.0000000</h3>
+        //     <h3 id="${symbol}__percent">0.00%</h3>
+        //   `;
+        // });
         update();
       }, true );
     </script>
