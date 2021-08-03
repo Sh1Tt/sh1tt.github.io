@@ -54,7 +54,7 @@
         margin: 0 2vw auto auto;
         text-shadow: 1px 1px 2px rgb( 0 0 0 / 85 );
         background-color: transparent;
-            transform: scale3d( 0.50, 0.50, 1 ) translate( 50%, -50% );
+        transform: scale3d( 0.50, 0.50, 1 ) translate( 50%, -50% );
       }
 
       #__time
@@ -261,6 +261,12 @@
                 // imageElement = document.getElementById('SomeImageElement');
                 // imageElement.src = customImageFile;
                 document.getElementById( `__bg` ).src = customImageFile;
+            }
+            if (properties.widgetsize)
+            {
+                const scale = properties.widgetsize.value
+                const offsett = 100 - ( scale * 100 )
+                document.getElementById( `__app`).style.transform = `scale3d( ${ scale }, ${ scale }, 1 ) translate( ${ offset }%, -${ offset }% );
             }
         },
       };
