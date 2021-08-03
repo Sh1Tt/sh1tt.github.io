@@ -64,11 +64,11 @@
       {
         flex: 0 0 100%;
       }
-      .tradingpair [data-price], .tradingpair [data-eur], .tradingpair [data-change]
+      .tradingpair [data-price], .tradingpair [data-eur], .tradingpair [data-percent]
       {
         flex: 0 0 50%;
       }
-      .tradingpair [data-busd], .tradingpair [data-change]
+      .tradingpair [data-busd], .tradingpair [data-percent]
       {
         text-align: end;
       }
@@ -91,19 +91,25 @@
       <!-- FIAT GROUP -->
       <div id="__fiats" class="group">
         <!-- BTCEUR -->
-        <div id="BTCEUR" class="tradingpair">
-          <h3 data-pair>BTCEUR</h3>
+        <div id="BTCEUR" class="tradingpair fiat">
+          <h3 data-pair style="flex: 1 1 0px">BTCEUR</h3>
+          <h3 data-percent style="flex: 1 1 0px">0.00%</h3>
+          
           <h3 data-price>0.000000</h3>
-          <h3 data-change style="flex: 1 1 0px">0.00%</h3>
           <p data-eur>€0.00</p>
+          
+          <h5 data-change>~</h5>
           <p data-busd style="visibility: hidden;">$0.00</p>
         </div>
         <!-- BTCBUSD -->
-        <div id="BTCBUSD" class="tradingpair">
-          <h3 data-pair>BTCBUSD</h3>
+        <div id="BTCBUSD" class="tradingpair fiat">
+          <h3 data-pair style="flex: 1 1 0px">BTCBUSD</h3>
+          <h3 data-percent style="flex: 1 1 0px">0.00%</h3>
+          
           <h3 data-price>0.000000</h3>
-          <h3 data-change style="flex: 1 1 0px">0.00%</h3>
           <p data-eur>€0.00</p>
+          
+          <h5 data-change>~</h5>
           <p data-busd style="visibility: hidden;">$0.00</p>
         </div>
       </div>
@@ -111,40 +117,44 @@
       <!-- COIN GROUP -->
       <div id="__coins" class="group">
         <!-- CAKEBTC -->
-        <div id="CAKEBTC" class="tradingpair">
+        <div id="CAKEBTC" class="tradingpair coin">
           <h3 data-pair>CAKEBTC</h3>
           <h3 data-price>0.000000</h3>
           <p data-busd>$0.00</p>
           <p data-eur>€0.00</p>
-          <h3 data-change>0.00%</h3>
+          <h3 data-percent>0.00%</h3>
+          <h5 data-change style="visibility:hidden;">~</h5>
         </div>
         <!-- RUNEBTC -->
-        <div id="RUNEBTC" class="tradingpair">
+        <div id="RUNEBTC" class="tradingpair coin">
           <h3 data-pair>RUNEBTC</h3>
           <h3 data-price>0.000000</h3>
           <p data-busd>$0.00</p>
           <p data-eur>€0.00</p>
-          <h3 data-change>0.00%</h3>
+          <h3 data-percent>0.00%</h3>
+          <h5 data-change style="visibility:hidden;">~</h5>
         </div>
         <!-- ICPBTC -->
-        <div id="ICPBTC" class="tradingpair">
+        <div id="ICPBTC" class="tradingpair coin">
           <h3 data-pair>ICPBTC</h3>
           <h3 data-price>0.000000</h3>
           <p data-busd>$0.00</p>
           <p data-eur>€0.00</p>
-          <h3 data-change>0.00%</h3>
+          <h3 data-percent>0.00%</h3>
+          <h5 data-change style="visibility:hidden;">~</h5>
         </div>
       </div>
 
       <!-- HIDDEN GROUP -->
       <div style="visibility: hidden;">
         <!-- EURBUSD -->
-        <div id="EURBUSD" class="tradingpair">
+        <div id="EURBUSD" class="tradingpair coin">
           <h3 data-pair>EURBUSD</h3>
           <h3 data-price>0.000000</h3>
           <p data-busd>$0.00</p>
           <p data-eur>€0.00</p>
-          <h3 data-change>0.00%</h3>
+          <h3 data-percent>0.00%</h3>
+          <h5 data-change style="visibility:hidden;">~</h5>
         </div>
       </div>
 
@@ -184,14 +194,16 @@
         const tick = pair.querySelector( `[data-price]` )
         const eur = pair.querySelector( `[data-eur]` )
         const busd = pair.querySelector( `[data-busd]` )
-        const percent = pair.querySelector( `[data-change]` )
+        const percent = pair.querySelector( `[data-percent]` )
+        const change = pair.querySelector( `[data-change]` )
 
         const endpoint = base + route + symbol
         const data = await fetch( endpoint, { method: 'get' } )
         const response = await data.json();
-        const { weightedAvgPrice, priceChangePercent } = response;
+        const { weightedAvgPrice, priceChange, priceChangePercent } = response;
 
         tick.innerText = `${ weightedAvgPrice }`;
+        change.innerText = `${ priceChange }`;
         percent.innerText = `${ ( Math.round( priceChangePercent * 100 ) ) / 100 }%`;
         
         if ( symbol === 'EURBUSD' ) rates['EURBUSD'] = weightedAvgPrice
@@ -207,8 +219,8 @@
         {
           parent.style.color = ( priceChangePercent > 0 ? 'green' : ( priceChangePercent < 0 ? 'red' : ( priceChangePercent === 0 ? 'gray' : 'var( --theme-color );' ) ) );  
         }
-        setStyle( percent )
-        setStyle( eur )
+        
+        setStyle( percent );
         return
       }
 
