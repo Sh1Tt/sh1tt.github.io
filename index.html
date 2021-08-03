@@ -9,14 +9,14 @@
         --theme-color: rgb( 255 255 255 / 99 );
         --bg-color: rgb( 8 8 8 / 99 );
       }
-      html, *
+      *
       {
         margin:  0;
         padding: 0;
         text-decoration: none;
         list-style: none;
       }
-      body
+      html, body
       {
         color: var( --theme-color );
         background-color: var( --bg-color );
@@ -27,6 +27,10 @@
         background-position: bottom right;
         background-size: cover;
         overflow: hidden;
+        width:  1920px;
+        height: 1080px;
+        margin: 0;
+        position: static;
       }
       #__app
       {
@@ -99,7 +103,7 @@
     <script type="text/javascript">
       document.body.style.width = window.innerWidth
       document.body.style.height = window.innerheight
-            
+
       const base = 'https://api.binance.com/';
       const route = 'api/v3/ticker/24hr?symbol=';
       
