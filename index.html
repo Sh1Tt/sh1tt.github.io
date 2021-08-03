@@ -22,10 +22,10 @@
         background-color: var( --bg-color );
         font-family: monospace;
         background-image: linear-gradient( 17deg, rgb( 2 4 3 / 99 ), rgb( 8 8 8 / 91 ), rgb( 41 41 41 / 87 ), rgb( 2 4 3 / 99 ) );
-        background-image: url( kirk-thornton-2-XeULGIEmg-unsplash.jpg );
+        /*background-image: url( kirk-thornton-2-XeULGIEmg-unsplash.jpg );
         background-repeat: no-repeat;
         background-position: bottom right;
-        background-size: stretch;
+        background-size: stretch;*/
         overflow: hidden;
         position: absolute;
         top: 0;
@@ -36,14 +36,22 @@
         max-height: 1080px;
         min-width: 100%;
         max-width: 1920px;
-        filter: drop-shadow( 2px 2px 7px rgb( 0 0 0 / 75 ) );
+        /*filter: drop-shadow( 2px 2px 7px rgb( 0 0 0 / 75 ) );*/
       }
-
+      body img 
+      {
+        margin: 0;
+        padding: 0;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
       #__app
       {
         width: 380px;
         margin: 0 2vw auto auto;
-
+        text-shadow: 2px 2px 7px rgb( 0 0 0 / 75 );
+        box-shadow: 2px 2px 7px rgb( 0 0 0 / 75 );
       }
 
       #__time
@@ -108,6 +116,7 @@
     </style>
   </head>
   <body>
+    <img id="__bg" src="kirk-thornton-2-XeULGIEmg-unsplash.jpg" alt="background image">
     <script type="text/javascript">
       const base = 'https://api.binance.com/';
       const route = 'api/v3/ticker/24hr?symbol=';
