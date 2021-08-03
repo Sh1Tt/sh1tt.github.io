@@ -113,7 +113,7 @@
 
       const step = interval =>
       { 
-        setTimeout( () => { console.log ( interval ) }, interval );
+        setTimeout( () => { update() }, interval * 2 );
       }
 
       const update = () =>
