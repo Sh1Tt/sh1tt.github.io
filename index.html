@@ -196,14 +196,14 @@
         if ( symbol === 'EURBUSD' ) rates['EURBUSD'] = weightedAvgPrice
         if ( symbol === 'BTCEUR' ) rates['EUR'] = weightedAvgPrice
         
-        euro.innerText = ( symbol === 'BTCBUSD' ? `€${ Rounded( weightedAvgPrice / rates['EURBUSD'] ) }` : ( symbol === 'BTCEUR' ? `${ Rounded( weightedAvgPrice ) }` : `€${ Rounded( weightedAvgPrice * rates['EUR'] ) }` ) );
+        euro.innerText = ( symbol === 'BTCBUSD' ? `€${ Rounded( weightedAvgPrice / rates['EURBUSD'] ) }` : ( symbol === 'BTCEUR' ? `${ Math.round( weightedAvgPrice * 100 ) / 100 }` : `€${ Rounded( weightedAvgPrice * rates['EUR'] ) }` ) );
         
         const setStyle = ( parent ) =>
         {
           parent.style.color = ( priceChangePercent > 0 ? 'green' : ( priceChangePercent < 0 ? 'red' : ( priceChangePercent === 0 ? 'gray' : 'var( --theme-color );' ) ) );  
         }
         setStyle( percent )
-        setStyle( tick )
+        setStyle( euro )
         return
       }
 
