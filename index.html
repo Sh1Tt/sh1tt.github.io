@@ -62,7 +62,7 @@
       
       const params =
       { 
-        interval: 10000,
+        interval: 5000,
         symbols: [
           'EURBUSD',
           'BTCEUR',
@@ -108,7 +108,10 @@
         return
       }
 
-      const step = interval => { setTimeout( update(), interval ); }
+      const step = interval =>
+      { 
+        setTimeout( () => update(), interval );
+      }
 
       const update = () =>
       {
