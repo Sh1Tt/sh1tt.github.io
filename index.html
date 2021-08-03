@@ -183,6 +183,7 @@
         const pair = document.body.querySelector( `#${symbol}` )
         const tick = pair.querySelector( `[data-price]` )
         const euro = pair.querySelector( `[data-eur]` )
+        const busd = pair.querySelector( `[data-busd]` )
         const percent = pair.querySelector( `[data-change]` )
 
         const endpoint = base + route + symbol
@@ -196,8 +197,9 @@
         if ( symbol === 'EURBUSD' ) rates['EURBUSD'] = weightedAvgPrice
         if ( symbol === 'BTCEUR' ) rates['EUR'] = weightedAvgPrice
         
-        euro.innerText = ( symbol === 'BTCBUSD' ? `€${ Rounded( weightedAvgPrice / rates['EURBUSD'] ) }` : ( symbol === 'BTCEUR' ? `€${ Math.round( weightedAvgPrice * 100 ) / 100 }` : `€${ Rounded( weightedAvgPrice * rates['EUR'] ) }` ) );
-        
+        const eur = ( symbol === 'BTCBUSD' ? `€${ Rounded( weightedAvgPrice / rates['EURBUSD'] ) }` : ( symbol === 'BTCEUR' ? `€${ Math.round( weightedAvgPrice * 100 ) / 100 }` : `€${ Rounded( weightedAvgPrice * rates['EUR'] ) }` ) );
+        euro.innerText = eur;
+        busd.innerText = Math.round( ( eur / rates['EURBUSD'] ) * 100 ) / 100;
         const setStyle = ( parent ) =>
         {
           parent.style.color = ( priceChangePercent > 0 ? 'green' : ( priceChangePercent < 0 ? 'red' : ( priceChangePercent === 0 ? 'gray' : 'var( --theme-color );' ) ) );  
