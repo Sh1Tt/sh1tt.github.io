@@ -197,7 +197,7 @@
         { 
           const x = document.createElement( 'div' );
           x.id = id;
-          x.class = 'exchange';
+          x.classList.add( 'exchange' );
           return x;
         }
         app.appendChild( exchange( '__fiat_v0' ) );
