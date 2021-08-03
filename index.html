@@ -24,9 +24,8 @@
       {
         if ( typeof( symbol ) === undefined || symbol === 'undefined') return
         
-        const crypto = document.body.querySelector( `[id="${symbol}"]` );
-        const avgPrice = crypto.querySelector( `[data-price]` );
-        const changePercent = crypto.querySelector ( `[data-change]` );
+        const avgPrice = document.body.querySelector( `[data-price="${symbol}"]` );
+        const changePercent = document.body.querySelector ( `[data-change="${symbol}"]` );
         
         const endpoint = base + route + symbol;
         const data = await fetch( endpoint, { method: 'get' } );
@@ -61,7 +60,7 @@
         {
           getTick( symbol );
         });
-        step( params.interval );
+        // step( params.interval );
         return
       }
 
@@ -76,8 +75,8 @@
           app.appendChild( __crypto );
           crypto.innerHTML = `
             <h3>${symbol}</h3>
-            <h3 data-price>0.00000000</h3>
-            <h3 data-change>0.00%</h3>
+            <h3 data-price="${symbol}" data-price>0.00000000</h3>
+            <h3 data-change="${symbol}">0.00%</h3>
           `;
           
         });
