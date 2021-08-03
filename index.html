@@ -96,7 +96,7 @@
         const { weightedAvgPrice, priceChangePercent } = response;
 
         tick.innerText = `${ weightedAvgPrice }`;
-        percent.innerText = `${ ( ( Math.round( priceChangePercent * 100 ) ) / 100 ).toPrecision( 2 ) }%`;
+        percent.innerText = `${ ( Math.round( priceChangePercent * 100 ) ) / 100 }%`;
         
         if ( symbol === 'EURBUSD' ) rates['EURBUSD'] = weightedAvgPrice
         if ( symbol === 'BTCEUR' ) rates['EUR'] = weightedAvgPrice
