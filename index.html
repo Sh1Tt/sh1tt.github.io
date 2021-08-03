@@ -185,7 +185,7 @@
         EUR: 0.00,
         EURBUSD: 0.00
       };
-      function()
+      function ini()
       {
         const app = document.createElement( 'div' );
         app.id = '__app_v0';
@@ -203,7 +203,8 @@
         app.appendChild( exchange( '__coins_v0' ) );
         app.appendChild( exchange( '__base_v0' ) );
       }
-
+      ini();
+      
       const getTick = async symbol =>
       {
         if ( typeof( symbol ) === undefined || symbol === 'undefined') return
