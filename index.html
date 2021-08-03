@@ -53,6 +53,11 @@
         font-size:  140%;
 
       }
+      #__base, #__base_v0
+      {
+        visibility: collapse;
+      }
+
       .fiat, .coin
       {
         display: flex;
@@ -143,7 +148,7 @@
       </div>
 
       <!-- HIDDEN GROUP -->
-      <div style="visibility: hidden;">
+      <div id="__base">
         <!-- EURBUSD -->
         <div id="EURBUSD" class="coin">
           <h3 data-pair>EURBUSD</h3>
@@ -179,6 +184,24 @@
         EUR: 0.00,
         EURBUSD: 0.00
       };
+      function __constructor()
+      {
+        const app = document.createElement( 'div' );
+        app.id = '__app_v0';
+        document.body.appendChild( app );
+        const display_clock = document.createElement( 'h2' );
+        display_clock.id = '__time_v0';
+        app.appendChild( display_clock );
+        const exchange = id => 
+        { 
+          const x = document.createElement( 'div' );
+          x.id = id;
+          return x;
+        }
+        app.appendChild( exchange( '__fiats_v0' ) );
+        app.appendChild( exchange( '__coins_v0' ) );
+        app.appendChild( exchange( '__base_v0' ) );
+      }
 
       const getTick = async symbol =>
       {
