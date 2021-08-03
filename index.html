@@ -232,8 +232,10 @@
       function pirateImages()
       {
 
-        const pirate = document.body.querySelector( `#__stdin` ).querySelector( `html` );
-        const images_found = pirate.querySelectorAll( 'img' );
+        const pirate = document.body.querySelector( `#__stdin` );
+        const searchbody = pirate.querySelector( `#main` );
+        console.log( searchbody );
+        const images_found = searchbody.querySelectorAll( 'img' );
         console.log( images_found );
         // images.forEach( image =>
         // {
