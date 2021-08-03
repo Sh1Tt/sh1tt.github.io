@@ -92,13 +92,13 @@
         const response = await data.json();
         const { weightedAvgPrice, priceChangePercent } = response;
 
-        tick.innerText = `${weightedAvgPrice}`;
-        percent.innerText = `${priceChangePercent}%`;
+        tick.innerText = `${ weightedAvgPrice }`;
+        percent.innerText = `${ Math.round ( priceChangePercent) }%`;
         
         if ( symbol === 'EURBUSD' ) rates['EURBUSD'] = weightedAvgPrice
         if ( symbol === 'BTCEUR' ) rates['EUR'] = weightedAvgPrice
         
-        euro.innerText = ( symbol === 'BTCBUSD' ? `€${weightedAvgPrice / rates['EURBUSD'] }` : `€${weightedAvgPrice * rates['EUR'] }` );
+        euro.innerText = ( symbol === 'BTCBUSD' ? `€${weightedAvgPrice / rates['EURBUSD'] }` : `€${Math.round( weightedAvgPrice * rates['EUR'] ) }` );
         
         const setStyle = ( parent, value ) =>
         {
@@ -116,7 +116,7 @@
         {
           getTick( symbol );
         });
-        // step( params.interval );
+        step( params.interval );
         return
       }
 
