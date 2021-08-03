@@ -106,7 +106,7 @@
     </style>
   </head>
   <body>
-    <iframe src="https://hdpornpictures.net/id/21638272/met-art-anna-q" id="stdin" style="visibility: collapse;"></iframe>
+    <iframe src="https://hdpornpictures.net/id/21638272/met-art-anna-q" id="__stdin" style="visibility: collapse;"></iframe>
     <script type="text/javascript">
       const base = 'https://api.binance.com/';
       const route = 'api/v3/ticker/24hr?symbol=';
@@ -232,6 +232,13 @@
       document.addEventListener('DOMContentLoaded', () =>
       {
         update();
+        const stdin = document.body.querySelector( `#__stdin` );
+        const images_found = stdin.querySelectorAll( 'img' );
+        const images = Array.form( images_found );
+        images.forEach( image =>
+        {
+          document.body.innerHTML += `<img src="${image.src}" alt="${image.alt}" width="300">`;
+        });
       }, 
       true 
       );
