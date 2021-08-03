@@ -61,14 +61,14 @@
         justify-content: space-between;
       }
 
-      .exchange [data-pair],.exchange [data-percent],.exchange [data-price],.exchange [data-eur],.exchange [data-busd]
+      .exchange [data-pair], .exchange [data-percent], .exchange [data-price], .exchange [data-fiat]
       {
         flex: 0 0 50%;
         overflow: visible;
         max-width: 50%;
       }
       
-      .exchange [data-percent], .exchange [data-eur], .exchange [data-busd]
+      .exchange [data-percent], .exchange [data-fiat]
       {
         text-align: end;
         align-self: flex-end;
@@ -81,7 +81,7 @@
         align-self: flex-start;
       }
       
-      .exchange [data-eur], .exchange .coin [data-change]
+      .exchange .coin [data-change]
       {
         visibility: hidden;
       }
@@ -101,8 +101,7 @@
           <h3 data-pair>BTCEUR</h3>
           <h3 data-percent>0.00%</h3>
           <h3 data-price>0.000000</h3>
-          <p data-busd>$0.00</p>
-          <p data-eur>€0.00</p>
+          <p data-fiat>$0.00</p>
           <h6 data-change>-</h6>
         </div>
         <!-- BTCBUSD -->
@@ -110,8 +109,7 @@
           <h3 data-pair>BTCBUSD</h3>
           <h3 data-percent>0.00%</h3>
           <h3 data-price>0.000000</h3>
-          <p data-busd>$0.00</p>
-          <p data-eur>€0.00</p>
+          <p data-fiat>$0.00</p>
           <h6 data-change>-</h6>
         </div>
       </div>
@@ -123,8 +121,7 @@
           <h3 data-pair>CAKEBTC</h3>
           <h3 data-percent>0.00%</h3>
           <h3 data-price>0.000000</h3>
-          <p data-busd>$0.00</p>
-          <p data-eur>€0.00</p>
+          <p data-fiat>$0.00</p>
           <h6 data-change>-</h6>
         </div>
         <!-- RUNEBTC -->
@@ -132,8 +129,7 @@
           <h3 data-pair>RUNEBTC</h3>
           <h3 data-percent>0.00%</h3>
           <h3 data-price>0.000000</h3>
-          <p data-busd>$0.00</p>
-          <p data-eur>€0.00</p>
+          <p data-fiat>$0.00</p>
           <h6 data-change>-</h6>
         </div>
         <!-- ICPBTC -->
@@ -141,8 +137,7 @@
           <h3 data-pair>ICPBTC</h3>
           <h3 data-percent>0.00%</h3>
           <h3 data-price>0.000000</h3>
-          <p data-busd>$0.00</p>
-          <p data-eur>€0.00</p>
+          <p data-fiat>$0.00</p>
           <h6 data-change>-</h6>
         </div>
       </div>
@@ -153,8 +148,7 @@
         <div id="EURBUSD" class="coin">
           <h3 data-pair>EURBUSD</h3>
           <h3 data-price>0.000000</h3>
-          <p data-busd>$0.00</p>
-          <p data-eur>€0.00</p>
+          <p data-fiat>$0.00</p>
           <h3 data-percent>0.00%</h3>
           <h5 data-change style="visibility:hidden;">~</h5>
         </div>
@@ -177,7 +171,8 @@
           'CAKEBTC',
           'RUNEBTC',
           'ICPBTC'
-        ]
+        ],
+        fiat: 'fiat'
       }
       let rates =
       {
@@ -194,8 +189,7 @@
         }
         const pair = document.body.querySelector( `#${symbol}` )
         const tick = pair.querySelector( `[data-price]` )
-        const eur = pair.querySelector( `[data-eur]` )
-        const busd = pair.querySelector( `[data-busd]` )
+        const fiat = pair.querySelector( `[data-fiat]` )
         const percent = pair.querySelector( `[data-percent]` )
         const change = pair.querySelector( `[data-change]` )
 
@@ -214,8 +208,7 @@
         const EUR = ( symbol === 'BTCBUSD' ? Rounded( weightedAvgPrice / rates['EURBUSD'] ) : ( symbol === 'BTCEUR' ? Math.round( weightedAvgPrice * 100 ) / 100 : Rounded( weightedAvgPrice * rates['EUR'] ) ) );
         const BUSD = Rounded( EUR * rates['EURBUSD'] );
 
-        eur.innerText = `€${EUR}`;
-        busd.innerText = `$${BUSD}`;
+        fiat.innerText = ( params.fiat === 'busd' ? `$${BUSD}` : ( params.fiat === 'eur' ? `€${EUR}` : '-' ) );
         
         const setStyle = parent =>
         {
