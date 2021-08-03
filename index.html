@@ -27,55 +27,68 @@
   </head>
   <body>
     <div id="__app">
-      <!-- BTCEUR -->
-      <div id="BTCEUR" class="tradingpair">
-        <h3 data-pair>BTCEUR</h3>
-        <h3 data-price>0.000000</h3>
-        <p data-eur>€0.00</p>
-        <h3 data-change>0.00%</h3>
+      
+      <!-- DISPLAY CLOCK -->
+      <div id="time" class="container">
+        <h2 data-timelocale id="__time">00:00</h2>
       </div>
-      <!-- ## -->
-      <!-- BTCBUSD -->
-      <div id="BTCBUSD" class="tradingpair">
-        <h3 data-pair>BTCBUSD</h3>
-        <h3 data-price>0.000000</h3>
-        <p data-eur>€0.00</p>
-        <h3 data-change>0.00%</h3>
+      
+      <!-- FIAT GROUP -->
+      <div id="__fiats" class="group">
+        <!-- BTCEUR -->
+        <div id="BTCEUR" class="tradingpair">
+          <h3 data-pair>BTCEUR</h3>
+          <h3 data-price>0.000000</h3>
+          <p data-eur>€0.00</p>
+          <h3 data-change>0.00%</h3>
+        </div>
+        <!-- BTCBUSD -->
+        <div id="BTCBUSD" class="tradingpair">
+          <h3 data-pair>BTCBUSD</h3>
+          <h3 data-price>0.000000</h3>
+          <p data-eur>€0.00</p>
+          <h3 data-change>0.00%</h3>
+        </div>
       </div>
-      <!-- ## -->
-      <!-- CAKEBTC -->
-      <div id="CAKEBTC" class="tradingpair">
-        <h3 data-pair>CAKEBTC</h3>
-        <h3 data-price>0.000000</h3>
-        <p data-eur>€0.00</p>
-        <h3 data-change>0.00%</h3>
+      
+      <!-- COIN GROUP -->
+      <div id="__coins" class="group">
+        <!-- CAKEBTC -->
+        <div id="CAKEBTC" class="tradingpair">
+          <h3 data-pair>CAKEBTC</h3>
+          <h3 data-price>0.000000</h3>
+          <p data-eur>€0.00</p>
+          <h3 data-change>0.00%</h3>
+        </div>
+        <!-- RUNEBTC -->
+        <div id="RUNEBTC" class="tradingpair">
+          <h3 data-pair>RUNEBTC</h3>
+          <h3 data-price>0.000000</h3>
+          <p data-eur>€0.00</p>
+          <h3 data-change>0.00%</h3>
+        </div>
+        <!-- ICPBTC -->
+        <div id="ICPBTC" class="tradingpair">
+          <h3 data-pair>ICPBTC</h3>
+          <h3 data-price>0.000000</h3>
+          <p data-eur>€0.00</p>
+          <h3 data-change>0.00%</h3>
+        </div>
       </div>
-      <!-- ## -->
-      <!-- RUNEBTC -->
-      <div id="RUNEBTC" class="tradingpair">
-        <h3 data-pair>RUNEBTC</h3>
-        <h3 data-price>0.000000</h3>
-        <p data-eur>€0.00</p>
-        <h3 data-change>0.00%</h3>
+
+      <!-- HIDDEN GROUP -->
+      <div style="visibility: hidden;">
+        <!-- EURBUSD -->
+        <div id="EURBUSD" class="tradingpair">
+          <h3 data-pair>EURBUSD</h3>
+          <h3 data-price>0.000000</h3>
+          <p data-eur>€0.00</p>
+          <h3 data-change>0.00%</h3>
+        </div>
       </div>
-      <!-- ## -->
-      <!-- ICPBTC -->
-      <div id="ICPBTC" class="tradingpair">
-        <h3 data-pair>ICPBTC</h3>
-        <h3 data-price>0.000000</h3>
-        <p data-eur>€0.00</p>
-        <h3 data-change>0.00%</h3>
-      </div>
-      <!-- ## -->
-      <!-- EURBUSD -->
-      <div id="EURBUSD" class="tradingpair" style="visibility: hidden;">
-        <h3 data-pair>EURBUSD</h3>
-        <h3 data-price>0.000000</h3>
-        <p data-eur>€0.00</p>
-        <h3 data-change>0.00%</h3>
-      </div>
-      <!-- ## -->
+
     </div>
+
     <script type="text/javascript">
       
       const base = 'https://api.binance.com/';
@@ -139,6 +152,8 @@
 
       const update = () =>
       {
+        const t = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        clock = t;
         params.symbols.forEach( symbol =>
         {
           getTick( symbol );
@@ -149,6 +164,7 @@
 
       document.addEventListener('DOMContentLoaded', () =>
       {
+        const clock = document.body.querySelector( `[data-timelocale]` );
         update();
       }, 
       true 
