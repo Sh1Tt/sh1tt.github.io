@@ -231,6 +231,15 @@
       }, 
       true 
       );
+      
+      window.addEventListener( 'onresize', () =>
+      {
+        document.body.style.width = '100vw';
+        document.body.style.height = '100vh';
+      },
+      true
+      );
+      
       window.wallpaperPropertyListener = {
         applyUserProperties: function(properties) {
             if (properties.bgimage) {
