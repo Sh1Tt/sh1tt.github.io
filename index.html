@@ -81,7 +81,10 @@
       const getTick = async symbol =>
       {
         if ( typeof( symbol ) === undefined || symbol === 'undefined') return
-        
+        const Rounded = n =>
+        {
+          return Math.round ( ( n + Number.EPSILON ) * 100 ) / 100
+        }
         const pair = document.body.querySelector( `#${symbol}` )
         const tick = pair.querySelector( `[data-price]` )
         const euro = pair.querySelector( `[data-eur]` )
@@ -93,12 +96,12 @@
         const { weightedAvgPrice, priceChangePercent } = response;
 
         tick.innerText = `${ weightedAvgPrice }`;
-        percent.innerText = `${ Math.round ( priceChangePercent) }%`;
+        percent.innerText = `${ Rounded ( priceChangePercent) }%`;
         
         if ( symbol === 'EURBUSD' ) rates['EURBUSD'] = weightedAvgPrice
         if ( symbol === 'BTCEUR' ) rates['EUR'] = weightedAvgPrice
         
-        euro.innerText = ( symbol === 'BTCBUSD' ? `€${weightedAvgPrice / rates['EURBUSD'] }` : `€${Math.round( weightedAvgPrice * rates['EUR'] ) }` );
+        euro.innerText = ( symbol === 'BTCBUSD' ? `€${ weightedAvgPrice / rates['EURBUSD'] }` : `€${ Rounded ( weightedAvgPrice * rates['EUR'] ) }` );
         
         const setStyle = ( parent, value ) =>
         {
@@ -110,7 +113,7 @@
 
       const step = interval =>
       { 
-        setTimeout( () => { console.log( interval ) }, interval );
+        setTimeout( () => { console.log ( interval ) }, interval );
       }
 
       const update = () =>
@@ -125,21 +128,10 @@
 
       document.addEventListener('DOMContentLoaded', () =>
       {
-        // const app = document.createElement( 'div');
-        // document.body.appendChild( app );
-        
-        // params.symbols.forEach( symbol =>
-        // {
-        //   const __crypto = document.createElement( 'div' );
-        //   app.appendChild( __crypto );
-        //   crypto.innerHTML = `
-        //     <h3 id="${symbol}">${symbol}</h3>
-        //     <h3 id="${symbol}__price">0.0000000</h3>
-        //     <h3 id="${symbol}__percent">0.00%</h3>
-        //   `;
-        // });
         update();
-      }, true );
+      }, 
+      true 
+      );
     </script>
   </body>
 </html>
