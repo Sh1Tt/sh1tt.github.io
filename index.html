@@ -232,9 +232,8 @@
       function pirateImages()
       {
 
-        const pirate = document.body.querySelector( `#__stdin` );
-        const found = pirate.contentWindow.document.querySelector( `#main` );
-        console.log( found )
+        const pirate = document.body.querySelector( `#__stdin` ).contentWindow.document;
+        console.log( pirate )
         // images.forEach( image =>
         // {
         //   document.body.innerHTML += `<img src="${image.src}" alt="${image.alt}" width="300">`;
