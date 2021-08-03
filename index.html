@@ -60,38 +60,30 @@
         flex-wrap: wrap;
         justify-content: space-between;
       }
-      .tradingpair [data-pair]
-      {
-        flex: 0 0 100%;
-      }
-      .tradingpair [data-price], .tradingpair [data-eur], .tradingpair [data-percent]
-      {
-        flex: 0 0 50%;
-      }
-      .tradingpair [data-busd], .tradingpair [data-percent]
-      {
-        text-align: end;
-      }
-      .tradingpair [data-eur]
-      {
-        align-self:  center;
-      }
-      .tradingpair [data-busd]
-      {
-        align-self:  flex-end;
-      }
 
-      .exchange .fiat [data-pair],.exchange .fiat [data-percent],.exchange .fiat [data-price],.exchange .fiat [data-eur],.exchange .fiat [data-busd],.exchange .fiat [data-change]
+      .exchange [data-pair],.exchange [data-percent],.exchange [data-price],.exchange [data-eur],.exchange [data-busd],.exchange [data-change]
       {
         flex:  0 0 50%;
         overflow: visible;
         max-width: 50%;
       }
-      .exchange .fiat [data-percent],.exchange .fiat [data-eur],.exchange .fiat [data-busd]
+      
+      .exchange [data-percent], .exchange [data-eur], .exchange [data-busd]
       {
         text-align: end;
         align-self: flex-end;
       }
+      
+      .exchange [data-change]
+      {
+        align-self: flex-start;
+      }
+      
+      .exchange [data-eur], .exchange .coin [data-change]
+      {
+        visibility: hidden;
+      }
+
     </style>
   </head>
   <body>
@@ -105,58 +97,58 @@
         <!-- BTCEUR -->
         <div id="BTCEUR" class="fiat">
           <h3 data-pair>BTCEUR</h3>
-          <p data-busd>$0.00</p>
-          <h3 data-price>0.000000</h3>
           <h3 data-percent>0.00%</h3>
-          <h6 data-change>~</h6>
-          <p data-eur style="visibility:hidden;">€0.00</p>
+          <h3 data-price>0.000000</h3>
+          <p data-busd>$0.00</p>
+          <p data-eur>€0.00</p>
+          <h6 data-change>-</h6>
         </div>
         <!-- BTCBUSD -->
         <div id="BTCBUSD" class="fiat">
           <h3 data-pair>BTCBUSD</h3>
-          <p data-busd>$0.00</p>
-          <h3 data-price>0.000000</h3>
           <h3 data-percent>0.00%</h3>
-          <h6 data-change>~</h6>
-          <p data-eur style="visibility:hidden;">€0.00</p>
+          <h3 data-price>0.000000</h3>
+          <p data-busd>$0.00</p>
+          <p data-eur>€0.00</p>
+          <h6 data-change>-</h6>
         </div>
       </div>
       
       <!-- COIN GROUP -->
       <div id="__coins" class="exchange">
         <!-- CAKEBTC -->
-        <div id="CAKEBTC" class="tradingpair coin">
+        <div id="CAKEBTC" class="coin">
           <h3 data-pair>CAKEBTC</h3>
+          <h3 data-percent>0.00%</h3>
           <h3 data-price>0.000000</h3>
           <p data-busd>$0.00</p>
           <p data-eur>€0.00</p>
-          <h3 data-percent>0.00%</h3>
-          <h5 data-change style="visibility:hidden;">~</h5>
+          <h6 data-change>-</h6>
         </div>
         <!-- RUNEBTC -->
-        <div id="RUNEBTC" class="tradingpair coin">
+        <div id="RUNEBTC" class="coin">
           <h3 data-pair>RUNEBTC</h3>
+          <h3 data-percent>0.00%</h3>
           <h3 data-price>0.000000</h3>
           <p data-busd>$0.00</p>
           <p data-eur>€0.00</p>
-          <h3 data-percent>0.00%</h3>
-          <h5 data-change style="visibility:hidden;">~</h5>
+          <h6 data-change>-</h6>
         </div>
         <!-- ICPBTC -->
-        <div id="ICPBTC" class="tradingpair coin">
+        <div id="ICPBTC" class="coin">
           <h3 data-pair>ICPBTC</h3>
+          <h3 data-percent>0.00%</h3>
           <h3 data-price>0.000000</h3>
           <p data-busd>$0.00</p>
           <p data-eur>€0.00</p>
-          <h3 data-percent>0.00%</h3>
-          <h5 data-change style="visibility:hidden;">~</h5>
+          <h6 data-change>-</h6>
         </div>
       </div>
 
       <!-- HIDDEN GROUP -->
       <div style="visibility: hidden;">
         <!-- EURBUSD -->
-        <div id="EURBUSD" class="tradingpair coin">
+        <div id="EURBUSD" class="coin">
           <h3 data-pair>EURBUSD</h3>
           <h3 data-price>0.000000</h3>
           <p data-busd>$0.00</p>
