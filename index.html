@@ -53,7 +53,7 @@
         font-size:  140%;
 
       }
-      #__base, #__base_v0
+      #__base, #__base
       {
         visibility: collapse;
       }
@@ -177,10 +177,10 @@
       function ini()
       {
         const app = document.createElement( 'div' );
-        app.id = '__app_v0';
+        app.id = '__app';
         document.body.appendChild( app );
         const display_clock = document.createElement( 'h2' );
-        display_clock.id = '__time_v0';
+        display_clock.id = '__time';
         app.appendChild( display_clock );
         const exchange = id => 
         { 
@@ -189,14 +189,14 @@
           x.classList.add( 'exchange' );
           return x;
         }
-        app.appendChild( exchange( '__fiat_v0' ) );
-        app.appendChild( exchange( '__coin_v0' ) );
-        app.appendChild( exchange( '__base_v0' ) );
+        app.appendChild( exchange( '__fiat' ) );
+        app.appendChild( exchange( '__coin' ) );
+        app.appendChild( exchange( '__base' ) );
         
 
         const tradepair = ( symbol, exchange ) => 
         {
-          const x = document.body.querySelector( `#__${exchange}_v0` );
+          const x = document.body.querySelector( `#__${exchange}` );
           x.innerHTML += `
             <div id="${symbol}" class="${exchange}">
               <h3 data-pair>${symbol}</h3>
