@@ -3,11 +3,24 @@
     <meta http-equiv="Content-Type" Content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0, viewport-fit=cover" />
     <title>Wallpaper Engine Project | with Binance API</title>
+    <style type="text/css">
+      .tradingpair
+      {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+      .tradingpair [data-pair]
+      {
+        flex: 0 0 100%;
+      }
+    </style>
   </head>
   <body>
     <div id="__app">
       <!-- BTCEUR -->
-      <div id="BTCEUR">
+      <div id="BTCEUR" class="tradingpair">
         <h3 data-pair>BTCEUR</h3>
         <h3 data-price>0.000000</h3>
         <p data-eur>€0.00</p>
@@ -15,7 +28,7 @@
       </div>
       <!-- ## -->
       <!-- BTCBUSD -->
-      <div id="BTCBUSD">
+      <div id="BTCBUSD" class="tradingpair">
         <h3 data-pair>BTCBUSD</h3>
         <h3 data-price>0.000000</h3>
         <p data-eur>€0.00</p>
@@ -23,7 +36,7 @@
       </div>
       <!-- ## -->
       <!-- CAKEBTC -->
-      <div id="CAKEBTC">
+      <div id="CAKEBTC" class="tradingpair">
         <h3 data-pair>CAKEBTC</h3>
         <h3 data-price>0.000000</h3>
         <p data-eur>€0.00</p>
@@ -31,7 +44,7 @@
       </div>
       <!-- ## -->
       <!-- RUNEBTC -->
-      <div id="RUNEBTC">
+      <div id="RUNEBTC" class="tradingpair">
         <h3 data-pair>RUNEBTC</h3>
         <h3 data-price>0.000000</h3>
         <p data-eur>€0.00</p>
@@ -39,7 +52,7 @@
       </div>
       <!-- ## -->
       <!-- ICPBTC -->
-      <div id="ICPBTC">
+      <div id="ICPBTC" class="tradingpair">
         <h3 data-pair>ICPBTC</h3>
         <h3 data-price>0.000000</h3>
         <p data-eur>€0.00</p>
@@ -47,7 +60,7 @@
       </div>
       <!-- ## -->
       <!-- EURBUSD -->
-      <div id="EURBUSD" style="visibility: hidden;">
+      <div id="EURBUSD" class="tradingpair" style="visibility: hidden;">
         <h3 data-pair>EURBUSD</h3>
         <h3 data-price>0.000000</h3>
         <p data-eur>€0.00</p>
