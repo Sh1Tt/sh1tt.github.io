@@ -44,8 +44,8 @@
         //   </div>
         // `;
         //return response;
-        document.body.querySelector( `[data-price="${symbol}"]` ).innerText = weightedAvgPrice;
-        document.body.querySelector( `[data-change="${symbol}"]` ).innerText = priceChangePercent;
+        document.body.querySelector( `#${symbol}__price` ).innerText = weightedAvgPrice;
+        document.body.querySelector( `#${symbol}__percent` ).innerText = priceChangePercent;
         return
       }
 
@@ -71,11 +71,10 @@
           const __crypto = document.createElement( 'div' );
           app.appendChild( __crypto );
           crypto.innerHTML = `
-            <h3>${symbol}</h3>
-            <h3 data-price="${symbol}">0.0000000</h3>
-            <h3 data-change="${symbol}">0.00%</h3>
+            <h3 id="${symbol}">${symbol}</h3>
+            <h3 id="${symbol}__price">0.0000000</h3>
+            <h3 id="${symbol}__percent">0.00%</h3>
           `;
-          
         });
         update();
       }, true );
