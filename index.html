@@ -4,13 +4,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0, viewport-fit=cover" />
     <title>Wallpaper Engine Project | with Binance API</title>
     <style type="text/css">
-      * {
+      :root
+      {
+        --theme-color: rgb( 255 255 255 / 99 );
+        --bg-color: rgb( 8 8 8 / 99 );
+      }
+      *
+      {
         margin:  0;
         padding: 0;
         text-decoration: none;
         list-style: none;
-        color:  rgb( 255 255 255 / 99 );
-        background-color: rgb( 8 8 8 / 99 );
+      }
+      html, body
+      {
+        color: var( --theme-color );
+        background-color: var( --bg-color );
+      }
+      .group
+      {
+        display: block;
+        position: relative;
+        margin: 2em 2em auto auto;
+        padding:  1em 2em;
+        border-radius: 2em;
+        border: .375em solid currentcolor;
       }
       .tradingpair
       {
