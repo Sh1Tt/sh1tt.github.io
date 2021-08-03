@@ -98,7 +98,7 @@
         if ( symbol === 'EURBUSD' ) rates['EURBUSD'] = weightedAvgPrice
         if ( symbol === 'BTCEUR' ) rates['EUR'] = weightedAvgPrice
         
-        euro.innerText = ( symbol === 'BTCBUSD' ? `€${weightedAvgPrice / rates['EURBUSD'] }` : `€${weightedAvgPrice * euroEx}` );
+        euro.innerText = ( symbol === 'BTCBUSD' ? `€${weightedAvgPrice / rates['EURBUSD'] }` : `€${weightedAvgPrice * rates['EUR'] }` );
         
         const setStyle = ( parent, value ) =>
         {
