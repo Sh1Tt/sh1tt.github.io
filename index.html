@@ -42,7 +42,7 @@
         padding: .5em 0;
       }
 
-      .group
+      .exchange
       {
         display: block;
         position: relative;
@@ -53,7 +53,7 @@
         font-size:  140%;
 
       }
-      .tradingpair
+      .fiat, .coin
       {
         display: flex;
         flex-direction: row;
@@ -80,6 +80,17 @@
       {
         align-self:  flex-end;
       }
+
+      .exchange .fiat [data-pair],.exchange .fiat [data-percent],.exchange .fiat [data-price],.exchange .fiat [data-eur],.exchange .fiat [data-busd],.exchange .fiat [data-change]
+      {
+        flex:  0 0 50%;
+        overflow: visible;
+        max-width: 50%;
+      }
+      .exchange .fiat [data-percent],.exchange .fiat [data-eur],.exchange .fiat [data-busd]
+      {
+        text-align: end;
+      }
     </style>
   </head>
   <body>
@@ -89,33 +100,33 @@
       <h2 data-timelocale id="__time">00:00</h2>
       
       <!-- FIAT GROUP -->
-      <div id="__fiats" class="group">
+      <div id="__fiats" class="exchange">
         <!-- BTCEUR -->
-        <div id="BTCEUR" class="tradingpair fiat">
+        <div id="BTCEUR" class="fiat">
           <h3 data-pair style="flex: 1 1 0px">BTCEUR</h3>
-          <h3 data-percent style="flex: 1 1 0px">0.00%</h3>
-          
+          <h3 data-busd>$0.00</h3>
           <h3 data-price>0.000000</h3>
-          <p data-eur>€0.00</p>
-          
-          <h5 data-change>~</h5>
-          <p data-busd style="visibility: hidden;">$0.00</p>
+          <h3 data-percent style="flex: 1 1 0px">0.00%</h3>
+          <h6 data-change>~</h6>
+          <p data-eur style="visibility:hidden;">€0.00</p>
         </div>
         <!-- BTCBUSD -->
-        <div id="BTCBUSD" class="tradingpair fiat">
+        <div id="BTCBUSD" class="fiat">
           <h3 data-pair style="flex: 1 1 0px">BTCBUSD</h3>
+          <h3 data-busd>$0.00</h3>
+
+          <h3 data-price>0.000000</h3>
           <h3 data-percent style="flex: 1 1 0px">0.00%</h3>
           
-          <h3 data-price>0.000000</h3>
           <p data-eur>€0.00</p>
           
-          <h5 data-change>~</h5>
-          <p data-busd style="visibility: hidden;">$0.00</p>
+          <h6 data-change>~</h6>
+          
         </div>
       </div>
       
       <!-- COIN GROUP -->
-      <div id="__coins" class="group">
+      <div id="__coins" class="exchange">
         <!-- CAKEBTC -->
         <div id="CAKEBTC" class="tradingpair coin">
           <h3 data-pair>CAKEBTC</h3>
