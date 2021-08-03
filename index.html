@@ -6,39 +6,46 @@
   </head>
   <body>
     <div id="__app">
+      <!-- BTCEUR -->
+      <div id="BTCEUR" style="visibility: collapse;">
+        <h3 data-pair>BTC EUR</h3>
+        <h3 data-price>0.000000</h3>
+        <p data-eur>€0.00</p>
+        <h3 data-change>0.00%</h3>
+      </div>
+      <!-- ## -->
+      <!-- BTCBUSD -->
+      <div id="BTCBUSD">
+        <h3 data-pair>BTCBUSD</h3>
+        <h3 data-price>0.000000</h3>
+        <p data-eur>€0.00</p>
+        <h3 data-change>0.00%</h3>
+      </div>
+      <!-- ## -->
+      <!-- CAKEBTC -->
       <div id="CAKEBTC">
-        <h3 data-pair>
-          CAKEBTC
-        </h3>
-        <h3 data-price>
-          0.000000
-        </h3>
-        <h3 data-change>
-          0.00%
-        </h3>
+        <h3 data-pair>CAKEBTC</h3>
+        <h3 data-price>0.000000</h3>
+        <p data-eur>€0.00</p>
+        <h3 data-change>0.00%</h3>
       </div>
+      <!-- ## -->
+      <!-- RUNEBTC -->
       <div id="RUNEBTC">
-        <h3 data-pair>
-          RUNEBTC
-        </h3>
-        <h3 data-price>
-          0.000000
-        </h3>
-        <h3 data-change>
-          0.00%
-        </h3>
+        <h3 data-pair>RUNEBTC</h3>
+        <h3 data-price>0.000000</h3>
+        <p data-eur>€0.00</p>
+        <h3 data-change>0.00%</h3>
       </div>
+      <!-- ## -->
+      <!-- ICPBTC -->
       <div id="ICPBTC">
-        <h3 data-pair>
-          ICPBTC
-        </h3>
-        <h3 data-price>
-          0.000000
-        </h3>
-        <h3 data-change>
-          0.00%
-        </h3>
+        <h3 data-pair>ICPBTC</h3>
+        <h3 data-price>0.000000</h3>
+        <p data-eur>€0.00</p>
+        <h3 data-change>0.00%</h3>
       </div>
+      <!-- ## -->
     </div>
     <script type="text/javascript">
       
@@ -49,18 +56,22 @@
       { 
         interval: 5000,
         symbols: [
+          'BTCEUR',
+          'BTCBUSD'
           'CAKEBTC',
           'RUNEBTC',
           'ICPBTC'
         ]
       }
+      let euroEx;
 
       const getTick = async symbol =>
       {
         if ( typeof( symbol ) === undefined || symbol === 'undefined') return
         
         const pair = document.body.querySelector( `#${symbol}` )
-        const price = pair.querySelector( `[data-price]` )
+        const tick = pair.querySelector( `[data-tick]` )
+        const euro = pair.querySelector( `[data-eur]` )
         const percent = pair.querySelector( `[data-change]` )
 
         const endpoint = base + route + symbol
@@ -68,8 +79,16 @@
         const response = await data.json();
         const { weightedAvgPrice, priceChangePercent } = response;
 
-        price.innerText = weightedAvgPrice;
-        percent.innerText = priceChangePercent;
+        if ( symbol === 'BTCEUR' ) euroEx = weightedAvgPrice
+
+        tick.innerText = `${weightedAvgPrice}`;
+        euro.innerText = `€${weightedAvgPrice * euroEx}`;
+        percent.innerText = `${priceChangePercent}%`;
+        const setStyle = ( parent, value ) =>
+        {
+          parent.style.color = ( value > 0 ? 'green' : ( value < 0 ? 'red' : ( value === 0 ? : 'gray' : 'yellow' ) ) );  
+        }
+        setStyle( pair, priceChangePercent )
         return
       }
 
