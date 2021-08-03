@@ -152,8 +152,8 @@
 
       const update = () =>
       {
-        const t = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        clock = t;
+        const d = new Date()
+        clock = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         params.symbols.forEach( symbol =>
         {
           getTick( symbol );
