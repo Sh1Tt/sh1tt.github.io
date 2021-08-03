@@ -9,14 +9,14 @@
         --theme-color: rgb( 255 255 255 / 99 );
         --bg-color: rgb( 8 8 8 / 99 );
       }
-      *
+      html, *
       {
         margin:  0;
         padding: 0;
         text-decoration: none;
         list-style: none;
       }
-      html, body
+      body
       {
         color: var( --theme-color );
         background-color: var( --bg-color );
@@ -26,6 +26,7 @@
         background-repeat: none;
         background-position: bottom right;
         background-size: cover;
+        overflow: hidden;
       }
       #__app
       {
@@ -95,64 +96,10 @@
     </style>
   </head>
   <body>
-    <!-- <div id="__app">
-      
-      <h2 id="__time">00:00</h2>
-      
-      <div id="__fiats" class="exchange">
-        <div id="BTCEUR" class="fiat">
-          <h3 data-pair>BTCEUR</h3>
-          <h3 data-percent>0.00%</h3>
-          <h3 data-price>0.000000</h3>
-          <p data-fiat>$0.00</p>
-          <h6 data-change>-</h6>
-        </div>
-        <div id="BTCBUSD" class="fiat">
-          <h3 data-pair>BTCBUSD</h3>
-          <h3 data-percent>0.00%</h3>
-          <h3 data-price>0.000000</h3>
-          <p data-fiat>$0.00</p>
-          <h6 data-change>-</h6>
-        </div>
-      </div>
-      
-      <div id="__coins" class="exchange">
-        <div id="CAKEBTC" class="coin">
-          <h3 data-pair>CAKEBTC</h3>
-          <h3 data-percent>0.00%</h3>
-          <h3 data-price>0.000000</h3>
-          <p data-fiat>$0.00</p>
-          <h6 data-change>-</h6>
-        </div>
-        <div id="RUNEBTC" class="coin">
-          <h3 data-pair>RUNEBTC</h3>
-          <h3 data-percent>0.00%</h3>
-          <h3 data-price>0.000000</h3>
-          <p data-fiat>$0.00</p>
-          <h6 data-change>-</h6>
-        </div>
-        <div id="ICPBTC" class="coin">
-          <h3 data-pair>ICPBTC</h3>
-          <h3 data-percent>0.00%</h3>
-          <h3 data-price>0.000000</h3>
-          <p data-fiat>$0.00</p>
-          <h6 data-change>-</h6>
-        </div>
-      </div>
-
-      <div id="__base">
-        <div id="EURBUSD" class="coin">
-          <h3 data-pair>EURBUSD</h3>
-          <h3 data-price>0.000000</h3>
-          <p data-fiat>$0.00</p>
-          <h3 data-percent>0.00%</h3>
-          <h5 data-change style="visibility:hidden;">~</h5>
-        </div>
-      </div>
-
-    </div>
- --><script type="text/javascript">
-      
+    <script type="text/javascript">
+      document.body.style.width = window.innerWidth
+      document.body.style.height = window.innerheight
+            
       const base = 'https://api.binance.com/';
       const route = 'api/v3/ticker/24hr?symbol=';
       
@@ -280,6 +227,19 @@
       }, 
       true 
       );
+      window.wallpaperPropertyListener = {
+        applyUserProperties: function(properties) {
+            if (properties.bgimage) {
+                // Read the file
+                let customImageFile = 'file:///' + properties.bgimage.value;
+
+                document.body.style.backgroundImage = `url( ${customImageFile} )`;
+                // Assign the file to the src attribute of an image element
+                // imageElement = document.getElementById('SomeImageElement');
+                // imageElement.src = customImageFile;
+            }
+        },
+      };
     </script>
   </body>
 </html>
