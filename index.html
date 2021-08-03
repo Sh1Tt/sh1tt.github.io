@@ -46,6 +46,14 @@
         <h3 data-change>0.00%</h3>
       </div>
       <!-- ## -->
+      <!-- EURBUSD -->
+      <div id="EURBUSD" style="visibility: hidden;">
+        <h3 data-pair>EURBUSD</h3>
+        <h3 data-price>0.000000</h3>
+        <p data-eur>€0.00</p>
+        <h3 data-change>0.00%</h3>
+      </div>
+      <!-- ## -->
     </div>
     <script type="text/javascript">
       
@@ -56,6 +64,7 @@
       { 
         interval: 10000,
         symbols: [
+          'EURBUSD',
           'BTCEUR',
           'BTCBUSD',
           'CAKEBTC',
@@ -63,7 +72,11 @@
           'ICPBTC'
         ]
       }
-      let euroEx;
+      let rates =
+      {
+        EUR: 0.00,
+        EURBUSD: 0.00
+      };
 
       const getTick = async symbol =>
       {
@@ -82,19 +95,16 @@
         tick.innerText = `${weightedAvgPrice}`;
         percent.innerText = `${priceChangePercent}%`;
         
-        if ( symbol === 'BTCEUR' )
+        if ( symbol === 'EURBUSD' ) rates['EURBUSD'] = weightedAvgPrice
+        if ( symbol === 'BTCEUR' ) rates['EUR'] = weightedAvgPrice
+        
+        euro.innerText = ( symbol === 'BTCBUSD' ? `€${weightedAvgPrice / rates['EURBUSD'] }` : `€${weightedAvgPrice * euroEx}` );
+        
+        const setStyle = ( parent, value ) =>
         {
-          euroEx = weightedAvgPrice
+          parent.style.color = ( value > 0 ? 'green' : ( value < 0 ? 'red' : ( value === 0 ? 'gray' : 'yellow' ) ) );  
         }
-        else
-        {
-          euro.innerText = `€${weightedAvgPrice * euroEx}`;
-        }
-        // const setStyle = ( parent, value ) =>
-        // {
-        //   parent.style.color = ( value > 0 ? 'green' : ( value < 0 ? 'red' : ( value === 0 ? 'gray' : 'yellow' ) ) );  
-        // }
-        // setStyle( pair, priceChangePercent )
+        setStyle( percent, priceChangePercent )
         return
       }
 
