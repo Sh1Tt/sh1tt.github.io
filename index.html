@@ -147,13 +147,13 @@
 
       const step = interval =>
       { 
-        setTimeout( () => { update() }, interval * 2 );
+        setTimeout( () => { update() }, interval );
       }
 
       const update = () =>
       {
         const d = new Date()
-        clock = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        clock.innerText = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         params.symbols.forEach( symbol =>
         {
           getTick( symbol );
