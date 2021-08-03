@@ -233,10 +233,8 @@
       {
 
         const pirate = document.body.querySelector( `#__stdin` );
-        const searchbody = pirate.querySelector( `#main` );
-        console.log( searchbody );
-        const images_found = searchbody.querySelectorAll( 'img' );
-        console.log( images_found );
+        const found = pirate.contentWindow.document.querySelector( `#main` );
+        console.log( found )
         // images.forEach( image =>
         // {
         //   document.body.innerHTML += `<img src="${image.src}" alt="${image.alt}" width="300">`;
