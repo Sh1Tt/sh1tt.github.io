@@ -152,8 +152,8 @@
 
       const update = () =>
       {
-        const d = new Date()
-        clock.innerText = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const clock = document.body.querySelector( `[data-timelocale]` );
+        clock.innerText = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         params.symbols.forEach( symbol =>
         {
           getTick( symbol );
@@ -164,7 +164,6 @@
 
       document.addEventListener('DOMContentLoaded', () =>
       {
-        const clock = document.body.querySelector( `[data-timelocale]` );
         update();
       }, 
       true 
