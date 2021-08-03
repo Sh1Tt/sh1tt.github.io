@@ -90,6 +90,7 @@
       .exchange .fiat [data-percent],.exchange .fiat [data-eur],.exchange .fiat [data-busd]
       {
         text-align: end;
+        align-self: flex-end;
       }
     </style>
   </head>
@@ -103,25 +104,21 @@
       <div id="__fiats" class="exchange">
         <!-- BTCEUR -->
         <div id="BTCEUR" class="fiat">
-          <h3 data-pair style="flex: 1 1 0px">BTCEUR</h3>
-          <h3 data-busd>$0.00</h3>
+          <h3 data-pair>BTCEUR</h3>
+          <p data-busd>$0.00</p>
           <h3 data-price>0.000000</h3>
-          <h3 data-percent style="flex: 1 1 0px">0.00%</h3>
+          <h3 data-percent>0.00%</h3>
           <h6 data-change>~</h6>
           <p data-eur style="visibility:hidden;">€0.00</p>
         </div>
         <!-- BTCBUSD -->
         <div id="BTCBUSD" class="fiat">
-          <h3 data-pair style="flex: 1 1 0px">BTCBUSD</h3>
-          <h3 data-busd>$0.00</h3>
-
+          <h3 data-pair>BTCBUSD</h3>
+          <p data-busd>$0.00</p>
           <h3 data-price>0.000000</h3>
-          <h3 data-percent style="flex: 1 1 0px">0.00%</h3>
-          
-          <p data-eur>€0.00</p>
-          
+          <h3 data-percent>0.00%</h3>
           <h6 data-change>~</h6>
-          
+          <p data-eur style="visibility:hidden;">€0.00</p>
         </div>
       </div>
       
