@@ -1,0 +1,274 @@
+<!DOCTYPE html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" Content="text/html; charset=UTF-8" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=0.5 maximum-scale=0.5, viewport-fit=cover" /> -->
+    <title>Wallpaper Engine Project | with Binance API</title>
+    <style type="text/css">
+      :root
+      {
+        --theme-color: rgb( 255 255 255 / 99 );
+        --bg-color: rgb( 8 8 8 / 99 );
+      }
+      *
+      {
+        margin:  0;
+        padding: 0;
+        text-decoration: none;
+        list-style: none;
+      }
+      body
+      {
+        color: var( --theme-color );
+        background-color: var( --bg-color );
+        font-family: monospace;
+        background-image: linear-gradient( 17deg, rgb( 2 4 3 / 99 ), rgb( 8 8 8 / 91 ), rgb( 41 41 41 / 87 ), rgb( 2 4 3 / 99 ) );
+        /*background-image: url( kirk-thornton-2-XeULGIEmg-unsplash.jpg );
+        background-repeat: no-repeat;
+        background-position: bottom right;
+        background-size: stretch;*/
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        min-height: 100%;
+        max-height: 1080px;
+        min-width: 100%;
+        max-width: 1920px;
+        /*filter: drop-shadow( 2px 2px 7px rgb( 0 0 0 / 75 ) );*/
+      }
+      body img 
+      {
+        position: fixed;
+        z-index: -984756;
+        margin: 0;
+        padding: 0;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+      #__app
+      {
+        width: 380px;
+        margin: 0 2vw auto auto;
+        text-shadow: 1px 1px 2px rgb( 0 0 0 / 85 );
+        background-color: transparent;
+            transform: scale3d( 0.50, 0.50, 1 ) translate( 50%, -50% );
+      }
+
+      #__time
+      {
+        display: grid;
+        justify-content: center;
+        font-size: 600%;
+        font-weight: 100;
+        padding: .5em 0;
+      }
+
+      .exchange
+      {
+        display: block;
+        position: relative;
+        margin: 1em auto;
+        padding: 1em 2em;
+        border-radius: .75em;
+        border: .175em solid currentcolor;
+        font-size:  140%;
+        box-shadow: 2px 2px 7px rgb( 0 0 0 / 75 );
+        backdrop-filter: blur( 5px );
+      }
+      #__base
+      {
+        visibility: collapse;
+      }
+
+      .fiat, .coin
+      {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      /*}*/
+
+      .exchange [data-pair], .exchange [data-percent], .exchange [data-price], .exchange [data-fiat]
+      {
+        flex: 0 0 50%;
+        overflow: visible;
+        max-width: 50%;
+      }
+      
+      .exchange [data-percent], .exchange [data-fiat]
+      {
+        text-align: end;
+        align-self: flex-end;
+      }
+      
+      .exchange [data-change]
+      {
+        flex: 0 0 100%;
+        text-align: start;
+        align-self: flex-start;
+        height:  2.5vh;
+      }
+      
+      .exchange .coin [data-change]
+      {
+        visibility: hidden;
+      }
+
+    </style>
+  </head>
+  <body>
+    <img id="__bg" src="kirk-thornton-2-XeULGIEmg-unsplash.jpg" alt="background image">
+    <script type="text/javascript">
+      const base = 'https://api.binance.com/';
+      const route = 'api/v3/ticker/24hr?symbol=';
+      
+      const params =
+      { 
+        interval: 5000,
+        symbols: [
+          'EURBUSD',
+          'BTCEUR',
+          'BTCBUSD',
+          'CAKEBTC',
+          'DOTBTC',
+          'RUNEBTC',
+          'ICPBTC'
+        ],
+        fiat: 'busd'
+      }
+      let rates =
+      {
+        EUR: 0.00,
+        EURBUSD: 0.00
+      };
+      function ini()
+      {
+        const app = document.createElement( 'div' );
+        app.id = '__app';
+        document.body.appendChild( app );
+        const app_clock = document.createElement( 'h2' );
+        app_clock.id = '__time';
+        app.appendChild( app_clock );
+        const exchange = id => 
+        { 
+          const x = document.createElement( 'div' );
+          x.id = id;
+          x.classList.add( 'exchange' );
+          return x;
+        }
+        app.appendChild( exchange( '__fiat' ) );
+        app.appendChild( exchange( '__coin' ) );
+        app.appendChild( exchange( '__base' ) );
+
+        const tradepair = ( symbol, exchange ) => 
+        {
+          const x = document.body.querySelector( `#__${exchange}` );
+          x.innerHTML += `
+            <div id="${symbol}" class="${exchange}">
+              <h3 data-pair>${symbol}</h3>
+              <h3 data-percent>0.00%</h3>
+              <h3 data-price>0.000000</h3>
+              <p data-fiat>$0.00</p>
+              <h6 data-change>-</h6>
+            </div>
+          `;
+        }
+        params.symbols.forEach( ( symbol, i ) =>
+        {
+          if ( i === 0 ) tradepair( symbol, 'base' );
+          if ( ( i === 1 ) || ( i === 2 ) ) tradepair( symbol, 'fiat' );
+          if ( i >= 3 ) tradepair( symbol, 'coin' );
+        });
+
+      }
+      ini();
+
+      const getTick = async symbol =>
+      {
+        if ( typeof( symbol ) === undefined || symbol === 'undefined') return
+        const Rounded = n =>
+        {
+          return Math.round ( ( n + Number.EPSILON ) * 100 ) / 100
+        }
+        const pair = document.body.querySelector( `#${symbol}` )
+        const tick = pair.querySelector( `[data-price]` )
+        const fiat = pair.querySelector( `[data-fiat]` )
+        const percent = pair.querySelector( `[data-percent]` )
+        const change = pair.querySelector( `[data-change]` )
+
+        const endpoint = base + route + symbol
+        const data = await fetch( endpoint, { method: 'get' } )
+        const response = await data.json();
+        const { weightedAvgPrice, priceChange, priceChangePercent } = response;
+
+        tick.innerText = `${ weightedAvgPrice }`;
+        change.innerText = `${ priceChange }`;
+        percent.innerText = `${ ( Math.round( priceChangePercent * 100 ) ) / 100 }%`;
+        
+        if ( symbol === 'EURBUSD' ) rates['EURBUSD'] = weightedAvgPrice
+        if ( symbol === 'BTCEUR' ) rates['EUR'] = weightedAvgPrice
+        
+        const EUR = ( symbol === 'BTCBUSD' ? Rounded( weightedAvgPrice / rates['EURBUSD'] ) : ( symbol === 'BTCEUR' ? Math.round( weightedAvgPrice * 100 ) / 100 : Rounded( weightedAvgPrice * rates['EUR'] ) ) );
+        const BUSD = Rounded( EUR * rates['EURBUSD'] );
+
+        fiat.innerText = ( params.fiat === 'busd' ? `$${BUSD}` : ( params.fiat === 'eur' ? `€${EUR}` : '-' ) );
+        
+        const setStyle = parent =>
+        {
+          parent.style.color = ( priceChangePercent > 0 ? 'green' : ( priceChangePercent < 0 ? 'red' : ( priceChangePercent === 0 ? 'gray' : 'var( --theme-color );' ) ) );  
+        }
+        
+        setStyle( percent );
+        return
+      }
+
+      const step = interval =>
+      { 
+        setTimeout( () => { update() }, interval );
+      }
+
+      const update = () =>
+      {
+        const clock = document.body.querySelector( `#__time` );
+        clock.innerText = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' });
+        params.symbols.forEach( symbol =>
+        {
+          getTick( symbol );
+        });
+        step( params.interval );
+        return
+      }
+
+      document.addEventListener('DOMContentLoaded', () =>
+      {
+        update();
+      }, 
+      true 
+      );
+      
+      window.wallpaperPropertyListener = {
+        applyUserProperties: function(properties) {
+            if (properties.bgimage) {
+                // Read the file
+                let customImageFile = 'file:///' + properties.bgimage.value;
+
+                //document.body.style.backgroundImage = `url( ${customImageFile} )`;
+                // Assign the file to the src attribute of an image element
+                // imageElement = document.getElementById('SomeImageElement');
+                // imageElement.src = customImageFile;
+                document.getElementById( `__bg` ).src = customImageFile;
+            }
+
+            if (properties.widgetsize)
+            {
+                const offsett = 100 - ( properties.widgetsize.value * 100 )
+                app.style.transform = `scale3d( ${ properties.widgetsize.value }, ${ properties.widgetsize.value }, 1 ) translate( ${ offset }%, -${ offset }% )`;
+            }
+        },
+      };
+    </script>
+  </body>
+</html>
